@@ -1,8 +1,13 @@
 <?php
+session_start();
+
+
 // Requiring the classes to make objects
 require 'Model/product.php';
 require 'Model/customer.php';
 require 'Model/groups.php';
+
+
 
 // Getting data form json and decoding it to array
 $jsonProducts = file_get_contents('Model/products.json');
@@ -23,15 +28,13 @@ for ($i = 0 ; $i <count($productDecode); $i++)
     array_push($product , new product($productDecode[$i]->id , $productDecode[$i]->name , $productDecode[$i]->description , $productDecode[$i]->price ));
 
 }
-var_dump($product);
+
 // Making the Customer objects from data of the json
 for ($i = 0 ; $i < count($customerDecode); $i++)
 {
-
-   array_push($customer, new customer($customerDecode[$i]->id,$customerDecode[$i]->name,$customerDecode[$i]->group_id));
-
+    array_push($customer, new customer($customerDecode[$i]->id,$customerDecode[$i]->name,$customerDecode[$i]->group_id));
 }
-highlight_string("<?php\n\$data =\n" . var_export($customer, true) . ";\n?>");
+
 
 // Making the Group objects from data of the json
 for ($i = 0 ; $i < count($groupsDecode) ; $i++)
@@ -41,9 +44,10 @@ for ($i = 0 ; $i < count($groupsDecode) ; $i++)
         array_push($group , new groups($groupsDecode[$i]->id,$groupsDecode[$i]->name,$groupsDecode[$i]->variable_discount,$groupsDecode[$i]->group_id));
 
     }
-    elseif (is_null($groupsDecode[$i]->groupId) && $groupsDecode[$i]->fixed_discount) {
+    elseif ($groupsDecode[$i]->group_id === null) {
 
-        array_push($group , new groups($groupsDecode[$i]->id,$groupsDecode[$i]->name,$groupsDecode[$i]->fixed_discount, 'No Groups id !!!!'));
+        array_push($group , new groups($groupsDecode[$i]->id,$groupsDecode[$i]->name,$groupsDecode[$i]->variable_discount,'No id !!!'));
+
 
     }
     else {
@@ -52,4 +56,4 @@ for ($i = 0 ; $i < count($groupsDecode) ; $i++)
 
     }
 }
-highlight_string("<?php\n\$data =\n" . var_export($group, true) . ";\n?>");
+

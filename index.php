@@ -16,6 +16,26 @@ require 'Controller/Controller.php';
     <title>php-price-calculator</title>
 </head>
 <body>
-   <h1>hallo</h1>
+   <h1>Price Calculator</h1>
+   <form method="post">
+       <select name="Customer">
+           <?php foreach($customer as $key => $value) { ?>
+               <option value="<?php echo $value->id ?>"><?php echo $value->nameCustomer ?></option>
+           <?php }?>
+       </select>
+
+       <select name="Product">
+           <?php foreach($product as $key => $value) { ?>
+               <option value="<?php echo $value->id ?>"><?php echo $value->name  ?></option>
+           <?php }?>
+       </select>
+       <button type="submit"> Run </button>
+
+   </form>
+<?php
+if ($product[(int)$_POST['Product']->group_id === $customer[(int)$_POST['Customer']]]->group_id){
+    var_dump($_POST['Product'] , $_POST['Customer']);
+}
+?>
 </body>
 </html>

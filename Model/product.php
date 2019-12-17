@@ -7,6 +7,7 @@ class product
     public $name;
     public $description;
     public $price;
+    public $totalPrice;
 
     function __construct($id , $name , $discription , $price) {
 
@@ -17,5 +18,9 @@ class product
 
     }
 
+    function priceDid($price , $reduction) {
+
+       $this->totalPrice = $price / 100 * $reduction;
+    }
 
 }
