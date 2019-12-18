@@ -1,3 +1,8 @@
   if ($product[$_POST['Product']->group_id == $customer[$_POST['Customer']]]->group_id){
       var_dump($_POST['Product'] , $_POST['Customer']);
   }
+
+
+    if ($data->groupId == $groupId) {
+               return number_format($price - ($data->discountGroup / 100 * $price) , 2);
+           }

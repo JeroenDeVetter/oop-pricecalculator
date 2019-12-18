@@ -17,10 +17,4 @@ class product
         $this->price = $price;
 
     }
-
-    function priceDid($price , $reduction) {
-
-       $this->totalPrice = $price / 100 * $reduction;
-    }
-
 }

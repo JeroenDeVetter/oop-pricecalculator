@@ -57,3 +57,18 @@ for ($i = 0 ; $i < count($groupsDecode) ; $i++)
     }
 }
 
+// Function for getting name and price
+function price_and_name($productName, $productPrice, $userName, $userGroup , $group) {
+    return 'Product : ' . $productName . ', Price : ' . $productPrice . '&euro;' . '<br>'. 'Bought by :'. ' ' . $userName . ' ' . 'Group from : ' . $userGroup . '<br>' . 'Price to pay with reduction' . ' ' . priceDid($productPrice , $userGroup , $group) . '&euro;';
+}
+
+// Function for calculating the reduction
+function priceDid($price ,$groupId ,$group) {
+    for ($i = 0; $i < count($group); $i++) {
+        if ($group[$i]->Group == $groupId) {
+            echo number_format($price - ($group[$i]-
+                >discountGroup / 100 * $price) , 2);
+        }
+    }
+
+}

@@ -20,7 +20,7 @@ require 'Controller/Controller.php';
    <form method="post">
        <select name="Customer">
            <?php foreach($customer as $key => $value) { ?>
-               <option value="<?php echo $value->id ?>"><?php echo $value->nameCustomer ?></option>
+               <option value="<?php echo $value->idCustomer ?>"><?php echo $value->nameCustomer ?></option>
            <?php }?>
        </select>
 
@@ -33,9 +33,12 @@ require 'Controller/Controller.php';
 
    </form>
 <?php
-if ($product[(int)$_POST['Product']->group_id === $customer[(int)$_POST['Customer']]]->group_id){
-    var_dump($_POST['Product'] , $_POST['Customer']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+  price_and_name($product[$_POST['Product']]->name , $product[$_POST['Product']]->price, $customer[$_POST['Customer']]->nameCustomer, $customer[$_POST['Customer']]->group_id , $group);
+
 }
+
 ?>
 </body>
 </html>
