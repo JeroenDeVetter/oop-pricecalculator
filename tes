@@ -6,3 +6,7 @@
     if ($data->groupId == $groupId) {
                return number_format($price - ($data->discountGroup / 100 * $price) , 2);
            }
+
+                      return number_format($price - ($group[$i]->discountGroup / 100 * $price) , 2);
+
+return number_format($price - ($group[$i]->discountGroup / 100 * $price) , 2);

@@ -39,21 +39,22 @@ for ($i = 0 ; $i < count($customerDecode); $i++)
 // Making the Group objects from data of the json
 for ($i = 0 ; $i < count($groupsDecode) ; $i++)
 {
-    if($groupsDecode[$i]->variable_discount) {
-
+    if(isset($groupsDecode[$i]->variable_discount)) {
+      
+      if(!isset($groupsDecode[$i]->group_id))  {
+        array_push($group , new groups($groupsDecode[$i]->id,$groupsDecode[$i]->name,$groupsDecode[$i]->variable_discount,'no id'));
+      }else {
         array_push($group , new groups($groupsDecode[$i]->id,$groupsDecode[$i]->name,$groupsDecode[$i]->variable_discount,$groupsDecode[$i]->group_id));
-
-    }
-    elseif ($groupsDecode[$i]->group_id === null) {
-
-        array_push($group , new groups($groupsDecode[$i]->id,$groupsDecode[$i]->name,$groupsDecode[$i]->variable_discount,'No id !!!'));
-
-
-    }
-    else {
-
+      }
+        
+      
+    }else {
+      if(!isset($groupsDecode[$i]->group_id)) {
+        array_push($group , new  groups($groupsDecode[$i]->id,$groupsDecode[$i]->name,$groupsDecode[$i]->fixed_discount,'no id'));
+      }else {
         array_push($group , new  groups($groupsDecode[$i]->id,$groupsDecode[$i]->name,$groupsDecode[$i]->fixed_discount,$groupsDecode[$i]->group_id));
-
+      }
+  
     }
 }
 
@@ -64,11 +65,22 @@ function price_and_name($productName, $productPrice, $userName, $userGroup , $gr
 
 // Function for calculating the reduction
 function priceDid($price ,$groupId ,$group) {
-    for ($i = 0; $i < count($group); $i++) {
-        if ($group[$i]->Group == $groupId) {
-            echo number_format($price - ($group[$i]-
-                >discountGroup / 100 * $price) , 2);
+        $newid = $groupId;
+        $groupids = array();
+            array_push($groupids ,$newid);
+   
+        for ($i=0; $i <  2; $i++) { 
+            foreach ($group as $key => $value) {   
+                if (($value->Group === $newid)) {
+                    $newid = $value->groupId;
+                    array_push($groupids ,$value->discountGroup);
+                 }    
+                 
         }
+        $max = max($groupids);
+       
     }
-
+    return number_format($price - ($max / 100 * $price) , 2);
+    
+ 
 }

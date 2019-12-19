@@ -35,7 +35,7 @@ require 'Controller/Controller.php';
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  price_and_name($product[$_POST['Product']]->name , $product[$_POST['Product']]->price, $customer[$_POST['Customer']]->nameCustomer, $customer[$_POST['Customer']]->group_id , $group);
+ echo price_and_name($product[$_POST['Product']]->name , $product[$_POST['Product']]->price, $customer[$_POST['Customer']]->nameCustomer, $customer[$_POST['Customer']]->group_id , $group);
 
 }
 
