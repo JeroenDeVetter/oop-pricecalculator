@@ -68,18 +68,20 @@ function priceDid($price ,$groupId ,$group) {
         $newid = $groupId;
         $groupids = array();
             array_push($groupids ,$newid);
-   
+        // Getting all dipartments
         for ($i=0; $i <  2; $i++) { 
             foreach ($group as $key => $value) {   
                 if (($value->Group === $newid)) {
                     $newid = $value->groupId;
                     array_push($groupids ,$value->discountGroup);
-                 }    
-                 
+                 }                    
         }
+        //Getting highst value
         $max = max($groupids);
        
     }
+
+    // Return the value to the funtion call
     return number_format($price - ($max / 100 * $price) , 2);
     
  
